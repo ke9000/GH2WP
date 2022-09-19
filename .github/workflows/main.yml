@@ -27,7 +27,7 @@ jobs:
         id: postData
         run: |
           titleText = ""
-          ::set-output name=title::titletText
+          ::set-output name=title::titleText
 
       - name: post
         id: postInfo
