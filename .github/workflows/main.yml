@@ -23,7 +23,7 @@ jobs:
         id: makeHTML
         run: |
           text=$(python3 -m markdown2 ./README.md)
-          echo "::set-output name=contentHTML::$text"
+          echo "::set-output name=contentHTML::$(echo $text)"
 
       - name: post
         run: |
