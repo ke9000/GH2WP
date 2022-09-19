@@ -24,6 +24,7 @@ jobs:
         run: |
           text=$(python3 -m markdown2 ./README.md)
           echo "::set-output name=contentHTML::$(echo $text)"
+          echo $text
 
       - name: post
         run: |
