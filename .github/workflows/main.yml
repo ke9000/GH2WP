@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: test-CI
+
+on:
+	push:
+  		branches: [ "main" ]
+	pull_request:
+  		branches: [ "main" ]
+
+jobs:
+	update_wp_post:
+		runs-on: ubuntu-latest
+		steps:
+			- name: Checkout
+		  	  uses: actions/checkout@v3
+			
+			- name: convert2HTML
+			  id: convertHTML
+			  uses: jaywcjlove/markdown-to-html-cli@main
+			  env: 
+			  	ENV_1: ""
+			  with:
+			  	source: README.md
+				html: ENV_1
+			 run: |
+			 	::set-output name=contentHTML::$ENV_1
+		- name: makedata
+		  id: postData
+		  run: |
+		  	titleText = ""
+			::set-output name=title::titletText
+
+		- name: post
+		  id: postInfo
+		  uses: fjogeleit/http-request-action@v1
+		  with:
+		  	url: '[ブログのアドレス]/wp-json/wp/v2/posts/<id>'
+			method: 'POST'
+			username: ${{ secrets.AWX_USER }}
+			password: ${{ secrets.AWX_PASSWORD }}
+			customHeaders: '{"Content-Type": "application/json"}'
+			data: '{'title': ${{ steps.postData.outputs.titleText }}, 
+				'content' : ${{ steps.convertHTML.outputs.contentHTML }},
+				'status' : "Pending",
+				'categories' : ["カテゴリがあれば"],
+				'comment_status': 'open'}'
+
+		- name: Show Response
+		  run: |
+		  echo ${{ steps.postInfo.outputs.response }}
+		  echo ${{ steps.postInfo.outputs.headers }}
