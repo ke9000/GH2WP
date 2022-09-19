@@ -31,7 +31,7 @@ jobs:
          curl -X POST -Iu ${{ secrets.WP_USER }}:${{ secrets.WP_APP_PW }}  \ 
          -H "Content-Type: application/json" \
          -d '{ "content":${{ steps.makeHTML.outputs.contentHTML }}, "status" : "pending" }' \
-         https://swsd.net/wp-json/wp/v2/posts/$post_id
+         https://swsd.net/wp-json/wp/v2/posts/${{env.post_id}}
 
       - name: makedata
         id: postData
