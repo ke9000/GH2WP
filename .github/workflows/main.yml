@@ -27,7 +27,7 @@ jobs:
         id: getcontentHTML
         run: |
           text=$(cat /home/runner/work/GH2WP/GH2WP/index.html) 
-          ::set-output name=contentHTML::text
+          echo "::set-output name=contentHTML::$text"
 
       - name: makedata
         id: postData
