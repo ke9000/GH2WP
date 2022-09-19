@@ -19,11 +19,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: convert2HTML
-        id: convertHTML
         uses: jaywcjlove/markdown-to-html-cli@main
         with:
           source: README.md
-          html: contentHTML
+          output: index.html
+      - name: getHTML
+        run: |
+          contentHTML = $(cat ./index.html) 
     
       - name: makedata
         id: postData
