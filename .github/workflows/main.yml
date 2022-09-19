@@ -8,7 +8,6 @@ on:
   pull_request:
     branches: [ "main" ]
 env: 
-  contentHTML : ""
   titleText : ""
 
 jobs:
@@ -23,10 +22,13 @@ jobs:
         with:
           source: README.md
           output: index.html
+      
       - name: getHTML
+        id: getcontentHTML
         run: |
-          contentHTML=$(cat /home/runner/work/GH2WP/GH2WP/index.html) 
-    
+          text=$(cat /home/runner/work/GH2WP/GH2WP/index.html) 
+          ::set-output name=contentHTML::text
+
       - name: makedata
         id: postData
         run: |
@@ -42,7 +44,7 @@ jobs:
           username: ${{ secrets.AWX_USER }}
           password: ${{ secrets.AWX_PASSWORD }}
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"content" : ${{ steps.convertHTML.outputs.contentHTML }} , "status" : "pending" }'
+          data: '{"content" : ${{ steps.getcontentHTML.outputs.contentHTML }} , "status" : "pending" }'
           
       - name: Show Response
         run: |
