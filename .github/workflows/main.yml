@@ -33,17 +33,17 @@ jobs:
           ::set-output name=title::titletText
 
       - name: post
-		    id: postInfo
-		    uses: fjogeleit/http-request-action@v1
-		    with:
-		  	  url: 'https://swsd.net/wp-json/wp/v2/posts/155'
-			  method: 'POST'
-			  username: ${{ secrets.AWX_USER }}
-			  password: ${{ secrets.AWX_PASSWORD }}
-			  customHeaders: '{"Content-Type": "application/json"}'
-        data: '{'title' : ${{ steps.postData.outputs.titleText }}, 'content' : ${{ steps.convertHTML.outputs.contentHTML }}, 'status':'Pending', 'comment_status':'open' }'
-
+        id: postInfo
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://swsd.net/wp-json/wp/v2/posts/155'
+          method: 'POST'
+          username: ${{ secrets.AWX_USER }}
+          password: ${{ secrets.AWX_PASSWORD }}
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{'title' : ${{ steps.postData.outputs.titleText }}, 'content' : ${{ steps.convertHTML.outputs.contentHTML }}, 'status':'Pending', 'comment_status':'open' }'
+          
       - name: Show Response
-		    run: |
-		    echo ${{ steps.postInfo.outputs.response }}
+        run: |
+        echo ${{ steps.postInfo.outputs.response }}
         echo ${{ steps.postInfo.outputs.headers }}
