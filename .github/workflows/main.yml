@@ -25,7 +25,7 @@ jobs:
           output: index.html
       - name: getHTML
         run: |
-          contentHTML = $(cat ./index.html) 
+          contentHTML=$(cat ./index.html) 
     
       - name: makedata
         id: postData
