@@ -35,7 +35,7 @@ jobs:
 		  id: postInfo
 		  uses: fjogeleit/http-request-action@v1
 		  with:
-		  	url: '[ブログのアドレス]/wp-json/wp/v2/posts/<id>'
+		  	url: 'https://swsd.net/wp-json/wp/v2/posts/155'
 			method: 'POST'
 			username: ${{ secrets.AWX_USER }}
 			password: ${{ secrets.AWX_PASSWORD }}
@@ -43,7 +43,6 @@ jobs:
 			data: '{'title': ${{ steps.postData.outputs.titleText }}, 
 				'content' : ${{ steps.convertHTML.outputs.contentHTML }},
 				'status' : "Pending",
-				'categories' : ["カテゴリがあれば"],
 				'comment_status': 'open'}'
 
 		- name: Show Response
