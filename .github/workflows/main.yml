@@ -41,9 +41,9 @@ jobs:
           username: ${{ secrets.AWX_USER }}
           password: ${{ secrets.AWX_PASSWORD }}
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{'title' : ${{ steps.postData.outputs.titleText }}, 'content' : ${{ steps.convertHTML.outputs.contentHTML }}, 'status':'Pending', 'comment_status':'open' }'
+          data: '{'title' : ${{ steps.postData.outputs.titleText }},'content':${{ steps.convertHTML.outputs.contentHTML }},'status':'Pending','comment_status':'open' }'
           
       - name: Show Response
         run: |
-        echo ${{ steps.postInfo.outputs.response }}
-        echo ${{ steps.postInfo.outputs.headers }}
+          echo ${{ steps.postInfo.outputs.response }}
+          echo ${{ steps.postInfo.outputs.headers }}
